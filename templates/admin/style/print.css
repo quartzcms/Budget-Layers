@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,600');
+
+body {
+	font-family: 'Open Sans Condensed', sans-serif !important;
+}
+	
+body * {
+	font-size:13px !important;
+	font-weight: lighter !important;
+	border: none !important;
+	color: #444444;
+}
+
+body a[href]:after {
+	content: none !important;
+}
+
+table tr td {
+	padding: 0px !important;
+}
+
+.hide_for_print {
+	display: none !important;
+}
+
+table tr {
+	background-color: #f1f1f1 !important;
+}
+
+table tr td {
+	width: auto !important;
+	vertical-align: top !important;
+	border-bottom: 1px dotted #999999 !important;
+}
+
+table.total tr td {
+	vertical-align: top !important
+}
+
+table.total tr td h2 {
+	margin: 0px !important;
+	font-size: 30px !important;
+	color: #ffffff !important;
+}
+
+table tr:nth-child(1) {
+	background-color: #999999 !important;
+}
+
+table tr table tr,
+table tr table tr:nth-child(1) {
+	background-color: #dcdcdc !important;
+}
+
+table tr:nth-child(1) td {
+	color: #ffffff !important;
+}
+
+table tr table tr td,
+table tr table tr:nth-child(1) td {
+	color: #444444 !important;
+}
