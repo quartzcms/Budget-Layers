@@ -7,133 +7,50 @@
 	$bg_time=decoding($bg_fetch_modules->time);
 	$bg_tag_multiple=decoding(explode(':',$bg_fetch_modules->tag));
 	$bg_tag_multiple2=decoding($bg_fetch_modules->tag);
+    $bg_options1 = array();
+    $bg_options2 = array();
+    if(preg_match('/\{(.*?)\}$/', $bg_modules, $bg_match) && preg_match('/\{(.*?)\}$/', $bg_match[1], $bg_match2)) {
+    	if(preg_match('/class\{(.*?)\}/', $bg_match2[1], $bg_match3)) { $bg_options1 = explode(':', $bg_match3[1]); }
+    	if(preg_match('/expense\{(.*?)\}/', $bg_match2[1], $bg_match3)) { $bg_options2 = explode(':', $bg_match3[1]); }
+    }
 ?>
 <?php echo buildContainer($bg_connexion); ?>
 <?php echo $_SESSION['error_message']; ?>
-    <h1>EDIT EXPENSE MODULE</h1>
-    <form action="index.php?page=expense&action=post_update&id=<?php echo $bg_id; ?>" method="post" id="validator" role="form">
-        <div class="row">
-            <div class="col-md-6">
-                <input name="class" type="hidden" size="30" value="<?php echo $bg_class; ?>" />
-                <table class="table-striped">
-                    <tr>
-                    	<td width="20%">Title</td>
-                        <td><input name="title" type="text" class="form-control" size="30" value="<?php echo $bg_title; ?>" /></td>
-                    </tr>
-                    <tr>
-                        <td width="20%">Type of module</td>
-                        <td>Expense</td>
-                    </tr>
-                    <tr>
-                    <td width="20%">Date created</td>
-                        <td><input name="date" id="date" type="text" class="form-control" size="30" value="<?php echo $bg_date; ?>" /></td>
-                    </tr>
-                    <tr>
-                        <td width="20%">Hour created</td>
-                        <td><input name="hour" id="time" type="text" class="form-control" size="30" value="<?php echo $bg_time; ?>" /></td>
-                    </tr>
-                    <tr>
-                        <td width="20%">Tags affected</td>
-                        <td>
-                        	<?php echo modify_tag($bg_connexion, $bg_tag_multiple); ?>
-                        </td>
-                	</tr>
-                    <tr>
-                    	<td width="20%">Id of the module</td>
-                        <td><?php echo $bg_id_module ?></td>
-                    </tr>
-			</table>
-		</div>
-		<div class="col-md-6">
-			<table class="table-striped">
-	<?php
-				if(preg_match('/\{(.*?)\}$/', $bg_modules, $bg_match)) { 
-					if(preg_match('/\{(.*?)\}$/',$bg_match[1],$bg_match2)) {
-	?>
-				<tr>
-                	<td width="20%">Class</td>
-                    <td></td>
-            	</tr>
-	<?php
-				if(preg_match('/class\{(.*?)\}/',$bg_match2[1],$bg_match3)) {
-					$bg_options1 = explode(':',$bg_match3[1]);
-	?>
-					<tr>
-                    	<td width="20%">Show Title Class</td>
-                        <td>
-                            <select class="chosen-select form-control" name="show_title_class">
-                                <option value="show_title" <?php if($bg_options1[0] == 'show_title'){ ?>selected="selected"<?php } ?>>Show</option>
-                                <option value="0" <?php if($bg_options1[0] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                            </select>
-                        </td>
-					</tr>
-	<?php
-				}
-	?>
-				<tr>
-                    <td width="20%">Expense</td>
-                    <td></td>
-                </tr>
-	<?php	
-				if(preg_match('/expense\{(.*?)\}/',$bg_match2[1],$bg_match3)) {	
-					$bg_options2 = explode(':',$bg_match3[1]);
-	?>
-				<tr>
-                	<td width="20%">Show title</td>
-                    <td>
-                        <select class="chosen-select form-control" name="show_title">
-                            <option value="show_title" <?php if($bg_options2[0] == 'show_title'){ ?>selected="selected"<?php } ?>>Show</option>
-                            <option value="0" <?php if($bg_options2[0] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                        </select>
-					</td>
-				</tr>
-                <tr>
-                	<td width="20%">Show description</td>
-                    <td>
-                        <select class="chosen-select form-control" name="show_description">
-                            <option value="show_description" <?php if($bg_options2[1] == 'show_description'){ ?>selected="selected"<?php } ?>>Show</option>
-                            <option value="0" <?php if($bg_options2[1] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                        </select>
-					</td>
-				</tr>
-               	<tr>
-                	<td width="20%">Show username</td>
-                    <td>
-                        <select class="chosen-select form-control" name="show_username">
-                            <option value="show_username" <?php if($bg_options2[2] == 'show_username'){ ?>selected="selected"<?php } ?>>Show</option>
-                            <option value="0" <?php if($bg_options2[2] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                        </select>
-					</td>
-				</tr>
-                <tr>
-                	<td width="20%">Show time</td>
-                    <td>
-                        <select class="chosen-select form-control" name="show_time">
-                            <option value="show_time" <?php if($bg_options2[3] == 'show_time'){ ?>selected="selected"<?php } ?>>Show</option>
-                            <option value="0" <?php if($bg_options2[3] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                        </select>
-					</td>
-				</tr>
-                <tr>
-                	<td width="20%">Show Date</td>
-                    <td>
-                        <select class="chosen-select form-control" name="show_date">
-                            <option value="show_date" <?php if($bg_options2[4] == 'show_date'){ ?>selected="selected"<?php } ?>>Show</option>
-                            <option value="0" <?php if($bg_options2[4] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                        </select>
-					</td>
-				</tr>
-	<?php
-            	}	
-			}
-		}
-    ?>
-			</table>
-		</div>
-	</div>
-    <div class="row">
-        <div class="col-md-12">
-            <input type="submit" class="btn btn-primary" name="post" value="Modify" />
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h1 class="panel-title">Edit expense module</h1></div>
+            <div class="panel-body">
+                    <form action="index.php?page=expense&action=post_update&id=<?php echo $bg_id; ?>" method="post" id="validator" class="form-horizontal" role="form">
+                        <input name="class" type="hidden" value="<?php echo htmlspecialchars($bg_class, ENT_QUOTES, 'UTF-8'); ?>" />
+                        <h2 class="h4 text-muted">Module details</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group"><label for="expense-module-title" class="col-sm-4 control-label">Title</label><div class="col-sm-8"><input name="title" id="expense-module-title" type="text" class="form-control" value="<?php echo htmlspecialchars($bg_title, ENT_QUOTES, 'UTF-8'); ?>" /></div></div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Type</label><div class="col-sm-8"><p class="form-control-static">Expense</p></div></div>
+                                <div class="form-group"><label for="date" class="col-sm-4 control-label">Date</label><div class="col-sm-8"><input name="date" id="date" type="text" class="form-control" value="<?php echo htmlspecialchars($bg_date, ENT_QUOTES, 'UTF-8'); ?>" /></div></div>
+                                <div class="form-group"><label for="time" class="col-sm-4 control-label">Time</label><div class="col-sm-8"><input name="hour" id="time" type="text" class="form-control" value="<?php echo htmlspecialchars($bg_time, ENT_QUOTES, 'UTF-8'); ?>" /></div></div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Module ID</label><div class="col-sm-8"><p class="form-control-static"><?php echo htmlspecialchars($bg_id_module, ENT_QUOTES, 'UTF-8'); ?></p></div></div>
+                                <div class="form-group"><label class="col-sm-4 control-label">Tags affected</label><div class="col-sm-8"><div class="tag-selector"><?php echo modify_tag($bg_connexion, $bg_tag_multiple); ?></div></div></div>
+                            </div>
+                            <div class="col-md-6">
+                                <?php if(!empty($bg_options1)) { ?>
+                                    <h3 class="h4 text-muted">Class options</h3>
+                                    <div class="form-group"><label for="expense-show-title-class" class="col-sm-5 control-label">Show title class</label><div class="col-sm-7"><select class="chosen-select form-control" id="expense-show-title-class" name="show_title_class"><option value="show_title" <?php if($bg_options1[0] == 'show_title'){ ?>selected="selected"<?php } ?>>Show</option><option value="0" <?php if($bg_options1[0] == '0'){ ?>selected="selected"<?php } ?>>Hide</option></select></div></div>
+                                <?php } ?>
+                                <?php if(!empty($bg_options2)) {
+                                    $display_options = array('show_title' => 0, 'show_description' => 1, 'show_username' => 2, 'show_time' => 3, 'show_date' => 4);
+                                ?>
+                                    <h3 class="h4 text-muted">Expense display</h3>
+                                    <?php foreach($display_options as $option_name => $option_index) { $option_label = ucwords(str_replace('show_', '', $option_name)); ?>
+                                        <div class="form-group"><label for="expense-module-<?php echo $option_name; ?>" class="col-sm-5 control-label">Show <?php echo $option_label; ?></label><div class="col-sm-7"><select class="chosen-select form-control" id="expense-module-<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"><option value="<?php echo $option_name; ?>" <?php if(isset($bg_options2[$option_index]) && $bg_options2[$option_index] == $option_name){ ?>selected="selected"<?php } ?>>Show</option><option value="0" <?php if(isset($bg_options2[$option_index]) && $bg_options2[$option_index] == '0'){ ?>selected="selected"<?php } ?>>Hide</option></select></div></div>
+                                    <?php } ?>
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <div class="form-group"><div class="col-sm-offset-2 col-sm-10"><button type="submit" class="btn btn-primary" name="post" value="Modify">Save module</button></div></div>
+                    </form>
+            </div>
         </div>
     </div>
-</form>
+</div>

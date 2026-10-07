@@ -1,9 +1,17 @@
 <?php echo buildContainer($bg_connexion); ?>
 <?php echo $_SESSION['error_message']; ?>
-<button class="btn btn-warning pull-right" onclick="window.print();return false;">Print Page</button>
-<h1>LIST PLANS</h1>
+<div class="row">
+	<div class="col-md-12" style="margin-bottom: 10px;">
+		<a class="btn btn-info pull-right" href="index.php?page=calendar_plan<?php if(isset($_GET['tag'])) { echo '&amp;tag='.urlencode($_GET['tag']); } ?>">View Calendar</a>
+		<a class="btn btn-success pull-right" href="index.php?page=export_plan<?php if(isset($_GET['tag'])) { echo '&amp;tag='.urlencode($_GET['tag']); } ?>">Export Excel</a>
+		<button class="btn btn-warning pull-right" onclick="window.print();return false;">Print Page</button>
+	</div>
+</div>
 <div class="row">
 	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2 class="panel-title">Plans</h2></div>
+			<div class="panel-body" style="overflow-x: auto;">
 		<?php 
 			$pay_amount = array();
 			$expense_amount = array();
@@ -94,12 +102,16 @@
 				} 
 			}
 			?>
-		<table>
+		</table>
+			</div>
+		</div>
 	</div>
 </div>
-<h1>LIST EXPENSES</h1>
 <div class="row">
 	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2 class="panel-title">Expenses</h2></div>
+			<div class="panel-body" style="overflow-x: auto;">
 		<table width="100%" cellpadding="5" cellspacing="0" class="table-striped list">
 			<tr>
 				<td>Class</td>
@@ -202,12 +214,16 @@
 				} 
 			}
 		?>
-		<table>
+		</table>
+			</div>
+		</div>
 	</div>
 </div>
-<h1>OTHER EXPENSES</h1>
 <div class="row">
 	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2 class="panel-title">Other expenses</h2></div>
+			<div class="panel-body" style="overflow-x: auto;">
 		<table width="100%" cellpadding="5" cellspacing="0" class="table-striped list">
 			<tr>
 				<td>Class</td>
@@ -273,115 +289,176 @@
 				} 
 			} ?>
 		</table>
+			</div>
+		</div>
 	</div>
 </div>
-<h1>TOTAL</h1>
 <div class="row">
 	<div class="col-md-12">
-		<table width="100%" cellpadding="5" cellspacing="0" class="table-striped list">
-			<tr>
-				<td class="hide_for_print">Day</td>
-				<td class="hide_for_print">Week</td>
-				<td class="hide_for_print">Month</td>
-				<td>Date</td>
-				<td>Time</td>
-				<td>Daily Pay</td>
-				<td>Daily Expense</td>
-				<td>Pay Total</td>
-				<td>Expense Total</td>
-				<td align="right">Profit</td>
-			</tr>
-			<?php
-				$w = 1;
-				$m = 1;
-				for($i=1; $i<366; $i++){
-					$date = '';
-					$expense_amount_collect = 0;
-					$pay_amount_collect = array();
-					$pay_amount_collect_total = 0;
-					$expense_amount_collect_daily = 0;
-					$pay_amount_collect_daily = 0;
-					$date_time = '';
-					$date_time_expense = '';
-					
-					
-					foreach($pay_amount as $key => $value){
-						$date = substr($start_date, 0, 8);
-						$year = substr($date, 0, 4);
-						$month = substr($date, 4, 2);
-						$day = substr($date, 6, 2);
-						$time = substr($start_date, 8, 6);
-						$hour = substr($time, 0, 2);
-						$minute = substr($time, 2, 2);
-						$second = substr($time, 4, 2);
-						$date = $year.'-'.$month.'-'.$day;
-						$time = $hour.':'.$minute.':'.$second;
-						$date_time = $year.'-'.$month.'-'.$day.' '.$hour.':'.$minute.':'.$second;
-						$pay_amount_collect[$key] = $value * $i;
-						$pay_amount_collect_total = $pay_amount_collect_total + ($value * $i);
-						$pay_amount_collect_daily = $pay_amount_collect_daily + $value;
-					}
-					
-					if($date_time == ''){
-						$date_time = date('Y-m-d H:i:s');
-					}
-					
-					if($date_time != ''){
-						$date = date('Y-m-d', strtotime($date_time.' +'.$i.' day')); 
-						$week_day = date('l', strtotime($date_time.' +'.$i.' day')); 
-						$time = date('H:i:s', strtotime($date_time.' +'.$i.' day')); 
-						$date_time_expense = date('YmdHis', strtotime($date_time.' +'.$i.' day')); 
-					}
-					
-					if($date_time_expense != ''){
-						foreach($expense_amount as $key => $value){
-							if(intval($key) <= intval($date_time_expense)){
-								foreach($value as $key1 =>$value1){
-									$expense_amount_collect = $expense_amount_collect + $value1;
-									$expense_amount_collect_daily = $expense_amount_collect_daily + $value1;
-								}
-							}
-						}
-						$expense_amount_collect = $expense_amount_collect * $i;
-					}
-					
-					if($week_day == 'Monday'){
-						$w++;
-					}
-					$check_day = explode('-', $date);
-					if($check_day[2] == '1'){
-						$m++;
-					}
-					?>
-					<tr>
-						<td width="6%" class="hide_for_print"><?php echo "Day ".$i; ?></td>
-						<td width="6%" class="hide_for_print"><?php echo "Week ".$w; ?></td>
-						<td width="6%" class="hide_for_print"><?php echo "Month ".$m; ?></td>
-						<td width="6%"><?php echo $date ?></td>
-						<td width="6%"><?php echo $time ?></td>
-						<td width="10%"><?php echo $pay_amount_collect_daily; ?></td>
-						<td width="10%"><?php echo $expense_amount_collect_daily; ?></td>
-						<td width="10%"><?php echo $pay_amount_collect_total; ?></td>
-						<td width="10%"><?php echo $expense_amount_collect; ?></td>
-						<td width="30%" align="center">
-							<?php foreach($pay_amount_collect as $key => $value){ ?>
-								<span style="float: left; margin-right: 3px;" class="label label-<?php if(($value - $expense_amount_collect) > 0){ echo "success"; } else { echo "danger"; } ?>">With <?php echo $key; ?>: <?php echo intval($value - $expense_amount_collect); ?></span>
-							<?php } ?>
-							<span style="float: right;">Total: <?php echo intval($pay_amount_collect_total - $expense_amount_collect); ?></span>
-						</td>
-					</tr>
-				<?php
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2 class="panel-title">Total projection</h2></div>
+			<div class="panel-body">
+		<?php
+			$monthly_rows = array();
+			$monthly_totals = array();
+			$w = 1;
+			$m = 1;
+			for($i=1; $i<366; $i++){
+				$expense_amount_collect = 0;
+				$pay_amount_collect = array();
+				$pay_amount_collect_total = 0;
+				$expense_amount_collect_daily = 0;
+				$pay_amount_collect_daily = 0;
+				$date_time = '';
+				$date_time_expense = '';
+				foreach($pay_amount as $key => $value){
+					$date = substr($start_date, 0, 8);
+					$year = substr($date, 0, 4);
+					$month = substr($date, 4, 2);
+					$day = substr($date, 6, 2);
+					$time = substr($start_date, 8, 6);
+					$hour = substr($time, 0, 2);
+					$minute = substr($time, 2, 2);
+					$second = substr($time, 4, 2);
+					$date = $year.'-'.$month.'-'.$day;
+					$time = $hour.':'.$minute.':'.$second;
+					$date_time = $year.'-'.$month.'-'.$day.' '.$hour.':'.$minute.':'.$second;
+					$pay_amount_collect[$key] = $value * $i;
+					$pay_amount_collect_total += $value * $i;
+					$pay_amount_collect_daily += $value;
 				}
+				if($date_time == ''){
+					$date_time = date('Y-m-d H:i:s');
+				}
+				$date = date('Y-m-d', strtotime($date_time.' +'.$i.' day'));
+				$week_day = date('l', strtotime($date_time.' +'.$i.' day'));
+				$time = date('H:i:s', strtotime($date_time.' +'.$i.' day'));
+				$date_time_expense = date('YmdHis', strtotime($date_time.' +'.$i.' day'));
+				foreach($expense_amount as $key => $value){
+					if(intval($key) <= intval($date_time_expense)){
+						foreach($value as $key1 => $value1){
+							$expense_amount_collect += $value1;
+							$expense_amount_collect_daily += $value1;
+						}
+					}
+				}
+				$expense_amount_collect *= $i;
+				if($week_day == 'Monday'){
+					$w++;
+				}
+				$check_day = explode('-', $date);
+				if($check_day[2] == '1'){
+					$m++;
+				}
+				$month_key = substr($date, 0, 7);
+				if(!isset($monthly_rows[$month_key])){
+					$monthly_rows[$month_key] = array();
+					$monthly_totals[$month_key] = array('daily_pay' => 0, 'daily_expense' => 0, 'closing_pay' => 0, 'closing_expense' => 0);
+				}
+				$monthly_rows[$month_key][] = array(
+					'day_number' => $i,
+					'week_number' => $w,
+					'month_number' => $m,
+					'date' => $date,
+					'time' => $time,
+					'daily_pay' => $pay_amount_collect_daily,
+					'daily_expense' => $expense_amount_collect_daily,
+					'pay_total' => $pay_amount_collect_total,
+					'expense_total' => $expense_amount_collect,
+					'pay_items' => $pay_amount_collect
+				);
+				$monthly_totals[$month_key]['daily_pay'] += $pay_amount_collect_daily;
+				$monthly_totals[$month_key]['daily_expense'] += $expense_amount_collect_daily;
+				$monthly_totals[$month_key]['closing_pay'] = $pay_amount_collect_total;
+				$monthly_totals[$month_key]['closing_expense'] = $expense_amount_collect;
+			}
+			$grand_pay_total = 0;
+			$grand_expense_total = 0;
+			foreach($monthly_totals as $month_total){
+				$grand_pay_total += $month_total['daily_pay'];
+				$grand_expense_total += $month_total['daily_expense'];
+			}
+		?>
+		<style>
+			#monthly-total-tables,
+			#monthly-total-tables .panel-title > a,
+			#monthly-total-tables .panel-body,
+			#monthly-total-tables table,
+			#monthly-total-tables .info { color: #000; }
+			#monthly-total-tables .label { color: #fff; }
+		</style>
+		<div class="panel-group" id="monthly-total-tables">
+			<?php $month_index = 0; foreach($monthly_rows as $month_key => $rows){
+				$month_total = $monthly_totals[$month_key];
+				$month_profit = $month_total['daily_pay'] - $month_total['daily_expense'];
+				$month_panel_id = 'month-'.str_replace('-', '', $month_key);
 			?>
-		</table>
-		
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#monthly-total-tables" href="#<?php echo $month_panel_id; ?>">
+							<?php echo date('F Y', strtotime($month_key.'-01')); ?>
+							<span class="pull-right">Month profit: <?php echo intval($month_profit); ?> <span class="caret"></span></span>
+						</a>
+					</h4>
+				</div>
+				<div id="<?php echo $month_panel_id; ?>" class="panel-collapse collapse<?php if($month_index == 0) { echo ' in'; } ?>">
+					<div class="panel-body" style="overflow-x: auto;">
+						<table width="100%" cellpadding="5" cellspacing="0" class="table-striped list">
+							<tr>
+								<td class="hide_for_print">Day</td>
+								<td class="hide_for_print">Week</td>
+								<td class="hide_for_print">Month</td>
+								<td>Date</td>
+								<td>Time</td>
+								<td>Daily Pay</td>
+								<td>Daily Expense</td>
+								<td>Pay Total</td>
+								<td>Expense Total</td>
+								<td align="right">Profit</td>
+							</tr>
+							<?php foreach($rows as $row){ ?>
+							<tr>
+								<td width="6%" class="hide_for_print"><?php echo 'Day '.$row['day_number']; ?></td>
+								<td width="6%" class="hide_for_print"><?php echo 'Week '.$row['week_number']; ?></td>
+								<td width="6%" class="hide_for_print"><?php echo 'Month '.$row['month_number']; ?></td>
+								<td width="6%"><?php echo $row['date']; ?></td>
+								<td width="6%"><?php echo $row['time']; ?></td>
+								<td width="10%"><?php echo $row['daily_pay']; ?></td>
+								<td width="10%"><?php echo $row['daily_expense']; ?></td>
+								<td width="10%"><?php echo $row['pay_total']; ?></td>
+								<td width="10%"><?php echo $row['expense_total']; ?></td>
+								<td width="30%" align="center">
+									<?php foreach($row['pay_items'] as $key => $value){ ?>
+										<span style="float: left; margin-right: 3px;" class="label label-<?php if(($value - $row['expense_total']) > 0){ echo 'success'; } else { echo 'danger'; } ?>">With <?php echo $key; ?>: <?php echo intval($value - $row['expense_total']); ?></span>
+									<?php } ?>
+									<span style="float: right;">Total: <?php echo intval($row['pay_total'] - $row['expense_total']); ?></span>
+								</td>
+							</tr>
+							<?php } ?>
+							<tr class="info">
+								<td colspan="5" align="right"><strong>Month totals</strong></td>
+								<td><strong><?php echo $month_total['daily_pay']; ?></strong></td>
+								<td><strong><?php echo $month_total['daily_expense']; ?></strong></td>
+								<td><?php echo $month_total['closing_pay']; ?></td>
+								<td><?php echo $month_total['closing_expense']; ?></td>
+								<td align="center"><strong><?php echo intval($month_profit); ?></strong></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<?php $month_index++; } ?>
+		</div>
 		<table width="100%" cellpadding="5" cellspacing="0" class="table-striped list total">
 			<tr>
-				<td align="center"><h2>TOTAL GAIN: <?php echo $pay_amount_collect_total; ?></h2></td>
-				<td align="center"><h2>TOTAL EXPENSE: -<?php echo $expense_amount_collect; ?></h2></td>
-				<td align="center"><h2 style="font-size: 30px; padding: 0px 10px; font-weight: lighter;" class="label label-<?php if(($pay_amount_collect_total - $expense_amount_collect) > 0) { echo "success"; } else { echo "danger"; } ?>">TOTAL PROFIT: <?php echo ($pay_amount_collect_total - $expense_amount_collect); ?></h2></td>
+				<td align="center"><h2>TOTAL GAIN: <?php echo $grand_pay_total; ?></h2></td>
+				<td align="center"><h2>TOTAL EXPENSE: -<?php echo $grand_expense_total; ?></h2></td>
+				<td align="center"><h2 style="font-size: 30px; padding: 0px 10px; font-weight: lighter;" class="label label-<?php if(($grand_pay_total - $grand_expense_total) > 0) { echo 'success'; } else { echo 'danger'; } ?>">TOTAL PROFIT: <?php echo ($grand_pay_total - $grand_expense_total); ?></h2></td>
 			</tr>
 		</table>
 		<p style="margin-bottom: 50px;"></p>
+			</div>
+		</div>
 	</div>
 </div>

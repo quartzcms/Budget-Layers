@@ -4,7 +4,9 @@
 <div class="row">
 	<div class="col-md-2">
         <form action="index.php?page=plugins" method="post" id="validator" role="form">
-            <div class="well">
+            <div class="panel panel-default listing-sidebar">
+                <div class="panel-heading"><h2 class="panel-title">Filter plugins</h2></div>
+                <div class="panel-body">
                 <p>
                     Keyword: <br />
                     <input type="text" class="form-control" size="20" value="<?php echo (isset($_SESSION['populate']['search_plugin']) ? $_SESSION['populate']['search_plugin'] : ''); ?>" name="search_plugin" />
@@ -42,10 +44,14 @@
                     </select>
                 <p>
                 <p><input type="submit" class="btn btn-primary" size="20" value="Search" name="post_order_plugin" /></p>
+                </div>
             </div>
         </form>
     </div>
     <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h2 class="panel-title">Plugins</h2></div>
+            <div class="panel-body" style="overflow-x: auto;">
         <table class="table-striped list">
             <tr>
                 <td>Title</td>
@@ -80,6 +86,8 @@
             }
     ?>
         </table>
+            </div>
+        </div>
     </div>
 </div>
 <?php echo pagination($bg_init_plugins_rows); ?>

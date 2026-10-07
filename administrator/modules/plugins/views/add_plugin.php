@@ -1,10 +1,19 @@
 <?php echo buildContainer($bg_connexion); ?>
 <?php echo $_SESSION['error_message']; ?>
-<h1>ADD A PLUGIN</h1>
-<div class="list">
-	<p>Please make sure that before installing a plugin the modules folders have (755 : Best solution) or 775 permission and that the cache folder have 775 permission.</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h1 class="panel-title">Add a plugin</h1></div>
+            <div class="panel-body">
+                <div class="alert alert-info" role="note">Make sure the modules folder has 755 or 775 permissions and the cache folder has 775 permissions before installing a plugin.</div>
+                <form action="index.php?page=plugins&action=upload" method="post" enctype="multipart/form-data" id="validator" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="plugin-upload" class="col-sm-3 control-label">Plugin archive</label>
+                        <div class="col-sm-9"><input type="file" class="form-control" name="upload" id="plugin-upload" /></div>
+                    </div>
+                    <div class="form-group"><div class="col-sm-offset-3 col-sm-9"><button type="submit" class="btn btn-primary" name="post" value="Upload">Upload plugin</button></div></div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<form action="index.php?page=plugins&action=upload" method="post" enctype="multipart/form-data" id="validator" role="form">
-    <input type="file" name="upload" id="file">
-    <input type="submit" class="btn btn-primary" name="post" value="Upload" />
-</form>

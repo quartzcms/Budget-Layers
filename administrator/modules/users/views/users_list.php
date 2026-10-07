@@ -4,7 +4,9 @@
 <div class="row">
 	<div class="col-md-2">
         <form action="index.php?page=list_user" method="post" id="validator" role="form">
-            <div class="well">
+            <div class="panel panel-default listing-sidebar">
+                <div class="panel-heading"><h2 class="panel-title">Filter users</h2></div>
+                <div class="panel-body">
                 <p>
                     Username: <br />
                     <input type="text" class="form-control" size="20" value="<?php echo (isset($_SESSION['populate']['search_user']) ? $_SESSION['populate']['search_user'] : ''); ?>" name="search_user" />
@@ -54,10 +56,14 @@
                     </select>
                 </p>
                 <p><input type="submit" class="btn btn-primary" size="20" value="Search" name="post_order_user" /></p>
+                </div>
             </div>
         </form>
 	</div>
     <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h2 class="panel-title">Users</h2></div>
+            <div class="panel-body">
         <form action="index.php?page=delete_user" method="post" id="validator" role="form">
             <table class="table-striped list">
                 <tr>
@@ -81,7 +87,7 @@
                     <td><?php echo $bg_first_name ?></td>
                     <td><?php echo $bg_last_name ?></td>
                     <td><?php echo $bg_email ?></td>
-                    <td><input type="checkbox" value="<?php echo $bg_id ?>" name="delete[]" /></td>
+                    <td><label class="checkbox-inline"><input type="checkbox" value="<?php echo $bg_id ?>" name="delete[]" /><span class="sr-only">Select <?php echo htmlspecialchars($bg_username, ENT_QUOTES, 'UTF-8'); ?></span></label></td>
                     <td><a href="index.php?page=update_user_old&id=<?php echo $bg_id ?>">Update/See profile</a></td>
                 </tr>
         <?php
@@ -90,6 +96,8 @@
             </table>
             <input type="submit" class="btn btn-primary" class="reorder" value="Delete" />
         </form>
+			</div>
+		</div>
 	</div>
 </div>
 <?php echo pagination($bg_init_users_rows); ?>

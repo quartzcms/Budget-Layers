@@ -4,7 +4,9 @@
 <div class="row">
 	<div class="col-md-2">
         <form action="index.php" method="post" id="validator" role="form">
-            <div class="well">
+            <div class="panel panel-default listing-sidebar">
+                <div class="panel-heading"><h2 class="panel-title">Filter modules</h2></div>
+                <div class="panel-body">
                 <p>
                     Keyword: <br />
                     <input type="text" class="form-control" size="12" value="<?php echo (isset($_SESSION['populate']['search_module']) ? $_SESSION['populate']['search_module'] : '') ?>" name="search_module" />
@@ -70,10 +72,14 @@
                     </select>
                 <p>
                 <p><input type="submit" class="btn btn-primary" size="20" value="Search" name="post_order_module" /><p>
+                </div>
             </div>
         </form>
 	</div>
     <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h2 class="panel-title">Modules</h2></div>
+            <div class="panel-body">
         <form action="index.php?page=order_module" method="post" id="validator" role="form">
             <table class="table-striped list">
                 <tr>
@@ -137,6 +143,8 @@
             </table>
             <input type="submit" class="btn btn-primary" class="reorder" value="Reorder" />
         </form>
+			</div>
+		</div>
 	</div>
 </div>        
 <?php echo pagination($bg_init_modules_rows); ?>

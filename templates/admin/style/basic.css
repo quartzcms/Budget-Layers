@@ -50,7 +50,7 @@ textarea {
 }
 
 form p {
-	color: #ffffff;
+	color: #444444;
 }
 
 h1, h2, h3, h4 {
@@ -68,13 +68,67 @@ h1, h2, h3, h4 {
 	padding-left: 1% !important;
 }
 
+form .control-label,
+form .radio-inline { color: #555; }
+.radio-switch .btn { margin-top: 0 !important; }
+.add-expense-form { color: #333; }
+.panel-body .form-horizontal .table-striped tr td { color: #333; }
+.tag-selector > ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px 20px;
+}
+.tag-selector ul,
+.tag-selector li {
+	list-style: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+.tag-selector li { float: none !important; color: #333; }
+.tag-selector ul ul { margin-top: 6px !important; }
+
 nav *, 
 .well * {
 	text-transform: uppercase;
 }
 
-.table-striped tr td {
-	color: #ffffff;
+table th,
+table td {
+	color: #555555;
+}
+
+form table th,
+form table td {
+	color: #555555 !important;
+}
+
+table .glyphicon {
+	color: #555555;
+}
+
+table a,
+table a.label {
+	color: #555555;
+}
+
+table a:hover,
+table a:focus,
+table a.label:hover,
+table a.label:focus {
+	color: #333333;
+}
+
+.panel-body .table-striped tr td {
+	color: #333333;
+}
+
+.listing-sidebar .panel-body,
+.listing-sidebar .panel-body p {
+	color: #555555;
+}
+
+#monthly-total-tables .table-striped tr td {
+	color: #666666;
 }
 
 .table-striped tr td ul {
@@ -115,10 +169,6 @@ nav *,
 	display: inline-block !important;
 }
 
-body  * {
-	box-shadow: none !important;
-}
-
 .xdsoft_datetimepicker .xdsoft_datepicker {
 	width: auto !important;
 }
@@ -150,6 +200,47 @@ body  * {
 
 .chosen-select {
 	width:100%;
+}
+
+select.form-control {
+	text-align: left;
+}
+
+.chosen-container-single .chosen-single {
+	height: 34px;
+	padding-left: 12px;
+	border-color: #ccc;
+	border-radius: 4px;
+	background: #fff;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	line-height: 32px;
+	text-align: left;
+}
+
+.chosen-container-single .chosen-single span,
+.chosen-container .chosen-results,
+.chosen-container .chosen-results li {
+	text-align: left;
+}
+
+.chosen-container-single .chosen-single span {
+	line-height: 32px;
+}
+
+.chosen-container-single .chosen-single div b {
+	background-position: 0 7px;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+	background-position: -18px 7px;
+}
+
+.chosen-rtl.chosen-container-single .chosen-single div b {
+	background-position: 6px 7px;
+}
+
+.chosen-rtl.chosen-container-single.chosen-with-drop .chosen-single div b {
+	background-position: -12px 7px;
 }
 
 .navbar-nav > li > a, .navbar-inverse .navbar-brand {
@@ -202,11 +293,6 @@ nav a { text-decoration:none; font-size:15px; }
 	overflow: hidden;
 }
 
-.panel .panel-body p {
-	padding: 5px;
-	border: 1px dotted #444444;
-}
-
 .panel .panel-body p a{
 	color: #666666;
 }
@@ -221,59 +307,9 @@ nav a { text-decoration:none; font-size:15px; }
 }
 
 
-input.form-control, 
-input[type="text"], 
-input[type="password"], 
-input[type="email"], 
-input[type="number"], 
-.form-control[type="text"], 
-.form-control[type="password"], 
-.form-control[type="email"], 
-.form-control[type="tel"], 
-.form-control[contenteditable], 
-select, 
-select.form-control {
-	font-size:13px;
-	position: relative;
-	display: block;
-	overflow: hidden;
-	padding: 0px 0px 0px 8px;
-	height: 25px;
-	border: 1px solid #AAA;
-	border-radius: 5px;
-	background: rgba(255,255,255,0.8);
-	background: -moz-linear-gradient(center top , #FFF 20%, #F6F6F6 40%, #EEE 42%, #F4F4F4 60%) repeat scroll 0% 0% padding-box transparent;
-	box-shadow: 0px 0px 3px #FFF inset, 0px 1px 1px rgba(0, 0, 0, 0.1);
-	color: #444;
-	text-decoration: none;
-	white-space: nowrap;
-	line-height: 24px;
-}
-
-textarea, 
-textarea.form-control {
-	border: 1px solid #AAA;
-	box-shadow: 0px 0px 0.5px #666666 inset;
-	padding-left:10px;
-	padding:1%;
-    width:98%;
-}
-
 .glyphicon {
 	font-size:30px;
 	vertical-align:middle;
-}
-
-input[type="radio"], 
-.radio input[type="radio"], 
-.radio-inline input[type="radio"] {
-	margin-left:0px;
-}
-
-input[type="checkbox"], 
-.checkbox input[type="checkbox"], 
-.checkbox-inline input[type="checkbox"] {
-	margin-left:0px;
 }
 
 table {
@@ -296,11 +332,6 @@ h1, .h1 {
 html {
     padding:0px;
     margin:0px;
-}
-
-.form-control {
-	margin-top:0px;
-	margin-bottom:0px;
 }
 
 .btn {
@@ -340,25 +371,14 @@ form ul li {
     font-size:30px;
 }
 
-#connexion input {
+#connexion .form-control {
     width:60%;
     margin-left:auto;
-    display:block;
     margin-right:auto;
-    border-radius:5px;
-    padding:5px;
-    -moz-box-shadow:0px 2px 10px 2px rgba(0,0,0,0.3) inset;
-    -webkit-box-shadow:0px 2px 10px 2px rgba(0,0,0,0.3) inset;
-    box-shadow:0px 2px 10px 2px rgba(0,0,0,0.3) inset;
 }
 
 #connexion input[type="submit"]{
-    -moz-box-shadow:0px 2px 10px 2px rgba(255,255,255,0.4) inset;
-    -webkit-box-shadow:0px 2px 10px 2px rgba(255,255,255,0.4) inset;
-    box-shadow:0px 2px 10px 2px rgba(255,255,255,0.4) inset;
-    border:none;
     width:140px;
-    text-transform:uppercase;
     font-size:10px;
 }
 
@@ -449,11 +469,6 @@ table tbody tr td {
 table thead tr th input, table thead tr th select,
 table tbody tr td input, table tbody tr td select {
 	margin:0px !important;
-}
-
-input[type="submit"] {
-    display:block;
-    clear:both;
 }
 
 .pagination-content{

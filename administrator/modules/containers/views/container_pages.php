@@ -5,16 +5,20 @@
 ?>
 <?php echo buildContainer($bg_connexion); ?>
 <?php echo $_SESSION['error_message']; ?>
-<h1>CHOOSE TAGS OF CONTAINER</h1>
-<form action="index.php?page=container&action=post_name&id_name=<?php echo $bg_id ?>" method="post" id="validator" role="form">
-	<table class="table-striped">
-		<tr>
-            <td width="20%">Container</td>
-            <td><input name="title" type="text" class="form-control" size="30" value="<?php echo $bg_name ?>" /></td>
-        </tr>
-		<tr>
-        	<td width="20%">Tags in the container</td>
-            <td>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h1 class="panel-title">Container tags</h1></div>
+            <div class="panel-body">
+                <form action="index.php?page=container&action=post_name&id_name=<?php echo $bg_id ?>" method="post" id="validator" class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="container-title" class="col-sm-3 control-label">Container</label>
+                        <div class="col-sm-9"><input name="title" id="container-title" type="text" class="form-control" value="<?php echo htmlspecialchars($bg_name, ENT_QUOTES, 'UTF-8'); ?>" /></div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3"><h2 class="h4 text-muted">Tags in this container</h2></div>
+                        <div class="col-sm-9">
 			   <?php 
                     $select2=$bg_connexion->prepare("SELECT * FROM ".HASH."_container WHERE id_module = :al_id_module");
                     $select2->bindParam(':al_id_module', $bg_id_module);
@@ -30,20 +34,22 @@
                         $bg_tag_unique=decoding($bg_fetch_tag_container->tag);
                         if($bg_id_index == $bg_id_container){
                 ?>
-                            <p><input type="checkbox" name="tag[]" value="<?php echo $bg_tag_unique ?>" checked="checked" /> Alias : <?php echo $bg_tag_unique ?></p>
+                            <p><label class="checkbox-inline"><input type="checkbox" name="tag[]" value="<?php echo htmlspecialchars($bg_tag_unique, ENT_QUOTES, 'UTF-8'); ?>" checked="checked" /> Alias: <?php echo htmlspecialchars($bg_tag_unique, ENT_QUOTES, 'UTF-8'); ?></label></p>
                 <?php
                         } else {
                 ?>
-                            <p><input type="checkbox" name="tag[]" value="<?php echo $bg_tag_unique ?>" /> Alias : <?php echo $bg_tag_unique ?></p>
+                            <p><label class="checkbox-inline"><input type="checkbox" name="tag[]" value="<?php echo htmlspecialchars($bg_tag_unique, ENT_QUOTES, 'UTF-8'); ?>" /> Alias: <?php echo htmlspecialchars($bg_tag_unique, ENT_QUOTES, 'UTF-8'); ?></label></p>
                 <?php
                         }
                     }
                 ?>
-			</td>
-        </tr>
-        <tr>
-            <td width="20%"><input type="submit" class="btn btn-primary" name="post" value="Modify" /></td>
-            <td></td>
-        </tr>
-    </table>
-</form>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9"><button type="submit" class="btn btn-primary" name="post" value="Modify">Save tags</button></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

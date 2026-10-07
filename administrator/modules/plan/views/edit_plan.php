@@ -8,163 +8,75 @@
 	$bg_pay=$bg_fetch_plans->pay;
 	$bg_tag_multiple=decoding(explode(':',$bg_fetch_modules->tag));
 	$bg_tag_multiple2=decoding($bg_fetch_modules->tag);
+	$bg_options1 = array();
+	$bg_options2 = array();
+	if(preg_match('/\{(.*?)\}$/', $bg_modules, $bg_match) && preg_match('/\{(.*?)\}$/', $bg_match[1], $bg_match2)) {
+		if(preg_match('/class\{(.*?)\}/', $bg_match2[1], $bg_match3)) { $bg_options1 = explode(':', $bg_match3[1]); }
+		if(preg_match('/plan\{(.*?)\}/', $bg_match2[1], $bg_match3)) { $bg_options2 = explode(':', $bg_match3[1]); }
+	}
 ?>
 <?php echo buildContainer($bg_connexion); ?>
 <?php echo $_SESSION['error_message']; ?>
-    <h1>EDIT PLAN MODULE</h1>
-    <form action="index.php?page=plan&action=post_update&id=<?php echo $bg_id; ?>" method="post" id="validator" role="form">
-        <div class="row">
-            <div class="col-md-6">
-                <input name="class" type="hidden" size="30" value="<?php echo $bg_class; ?>" />
-                <table class="table-striped">
-                    <tr>
-                    	<td width="20%">Title</td>
-                        <td><input name="title" type="text" class="form-control" size="30" value="<?php echo $bg_title; ?>" /></td>
-                    </tr>
-                    <tr>
-                        <td width="20%">Type of module</td>
-                        <td>Plan</td>
-                    </tr>
-                    <tr>
-                        <td width="20%">Date created</td>
-                        <td><input name="date" id="date" type="text" class="form-control" size="30" value="<?php echo $bg_date; ?>" /></td>
-                    </tr>
-                    <tr>
-                        <td width="20%">Hour created</td>
-                        <td><input name="hour" id="time" type="text" class="form-control" size="30" value="<?php echo $bg_time; ?>" /></td>
-                    </tr>
-					<?php 
-					$bg_pay = json_decode($bg_pay, true);
-					foreach($bg_pay as $key => $value){ ?>
-					<tr class="pay_method">
-						<td width="20%">Pay method <?php echo (intval($key) + 1); ?></td>
-						<td>
-							<input name="pay_amount[]" type="text" class="form-control" size="30" value="<?php echo $bg_pay[$key]['amount']; ?>" style="width: 50px; display:inline-block;" />
-							<select class="chosen-select form-control" name="pay_frequence[]" style="width: 50px; display:inline-block;">
-								<option value="daily" <?php if($bg_pay[$key]['frequence'] == 'daily'){ echo "selected='selected'"; } ?>>Daily</option>
-								<option value="weekly" <?php if($bg_pay[$key]['frequence'] == 'weekly'){ echo "selected='selected'"; } ?>>Weekly</option>
-								<option value="monthly" <?php if($bg_pay[$key]['frequence'] == 'monthly'){ echo "selected='selected'"; } ?>>Monthly</option>
-								<option value="yearly" <?php if($bg_pay[$key]['frequence'] == 'yearly'){ echo "selected='selected'"; } ?>>Yearly</option>
-							</select>
-						</td>
-					</tr>
-					<?php } ?>
-					<?php for($i=1; $i<3; $i++){ ?>
-					<tr class="pay_method">
-						<td width="20%">Pay method</td>
-						<td>
-							<input name="pay_amount[]" type="text" class="form-control" size="30" value="" style="width: 50px; display:inline-block;" />
-							<select class="chosen-select form-control" name="pay_frequence[]" style="width: 50px; display:inline-block;">
-								<option value="daily">Daily</option>
-								<option value="weekly">Weekly</option>
-								<option value="monthly">Monthly</option>
-								<option value="yearly">Yearly</option>
-							</select>
-						</td>
-					</tr>
-					<?php } ?>
-                    <tr>
-                        <td width="20%">Restricted by Tags</td>
-                        <td>
-                        	<?php echo modify_tag($bg_connexion, $bg_tag_multiple); ?>
-                        </td>
-                	</tr>
-                    <tr>
-                    	<td width="20%">Id of the module</td>
-                        <td><?php echo $bg_id_module ?></td>
-                    </tr>
-			</table>
-		</div>
-		<div class="col-md-6">
-			<table class="table-striped">
-	<?php
-				if(preg_match('/\{(.*?)\}$/', $bg_modules, $bg_match)) { 
-					if(preg_match('/\{(.*?)\}$/',$bg_match[1],$bg_match2)) {
-	?>
-				<tr>
-                	<td width="20%">Class</td>
-                    <td></td>
-            	</tr>
-	<?php
-				if(preg_match('/class\{(.*?)\}/',$bg_match2[1],$bg_match3)) {
-					$bg_options1 = explode(':',$bg_match3[1]);
-	?>
-					<tr>
-                    	<td width="20%">Show Title Class</td>
-                        <td>
-                            <select class="chosen-select form-control" name="show_title_class">
-                                <option value="show_title" <?php if($bg_options1[0] == 'show_title'){ ?>selected="selected"<?php } ?>>Show</option>
-                                <option value="0" <?php if($bg_options1[0] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                            </select>
-                        </td>
-					</tr>
-	<?php
-				}
-	?>
-				<tr>
-                    <td width="20%">Plan</td>
-                    <td></td>
-                </tr>
-	<?php	
-				if(preg_match('/plan\{(.*?)\}/',$bg_match2[1],$bg_match3)) {	
-					$bg_options2 = explode(':',$bg_match3[1]);
-	?>
-				<tr>
-                	<td width="20%">Show title</td>
-                    <td>
-                        <select class="chosen-select form-control" name="show_title">
-                            <option value="show_title" <?php if($bg_options2[0] == 'show_title'){ ?>selected="selected"<?php } ?>>Show</option>
-                            <option value="0" <?php if($bg_options2[0] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                        </select>
-					</td>
-				</tr>
-                <tr>
-                	<td width="20%">Show description</td>
-                    <td>
-                        <select class="chosen-select form-control" name="show_description">
-                            <option value="show_description" <?php if($bg_options2[1] == 'show_description'){ ?>selected="selected"<?php } ?>>Show</option>
-                            <option value="0" <?php if($bg_options2[1] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                        </select>
-					</td>
-				</tr>
-               	<tr>
-                	<td width="20%">Show username</td>
-                    <td>
-                        <select class="chosen-select form-control" name="show_username">
-                            <option value="show_username" <?php if($bg_options2[2] == 'show_username'){ ?>selected="selected"<?php } ?>>Show</option>
-                            <option value="0" <?php if($bg_options2[2] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                        </select>
-					</td>
-				</tr>
-                <tr>
-                	<td width="20%">Show time</td>
-                    <td>
-                        <select class="chosen-select form-control" name="show_time">
-                            <option value="show_time" <?php if($bg_options2[3] == 'show_time'){ ?>selected="selected"<?php } ?>>Show</option>
-                            <option value="0" <?php if($bg_options2[3] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                        </select>
-					</td>
-				</tr>
-                <tr>
-                	<td width="20%">Show Date</td>
-                    <td>
-                        <select class="chosen-select form-control" name="show_date">
-                            <option value="show_date" <?php if($bg_options2[4] == 'show_date'){ ?>selected="selected"<?php } ?>>Show</option>
-                            <option value="0" <?php if($bg_options2[4] == '0'){ ?>selected="selected"<?php } ?>>Hide</option>
-                        </select>
-					</td>
-				</tr>
-	<?php
-            	}	
-			}
-		}
-    ?>
-			</table>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h1 class="panel-title">Edit plan module</h1></div>
+				<div class="panel-body">
+					<form action="index.php?page=plan&action=post_update&id=<?php echo $bg_id; ?>" method="post" id="validator" class="form-horizontal" role="form">
+						<input name="class" type="hidden" value="<?php echo htmlspecialchars($bg_class, ENT_QUOTES, 'UTF-8'); ?>" />
+						<h2 class="h4 text-muted">Module details</h2>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group"><label for="plan-title" class="col-sm-4 control-label">Title</label><div class="col-sm-8"><input name="title" id="plan-title" type="text" class="form-control" value="<?php echo htmlspecialchars($bg_title, ENT_QUOTES, 'UTF-8'); ?>" /></div></div>
+								<div class="form-group"><label class="col-sm-4 control-label">Type</label><div class="col-sm-8"><p class="form-control-static">Plan</p></div></div>
+								<div class="form-group"><label for="date" class="col-sm-4 control-label">Date</label><div class="col-sm-8"><input name="date" id="date" type="text" class="form-control" value="<?php echo htmlspecialchars($bg_date, ENT_QUOTES, 'UTF-8'); ?>" /></div></div>
+								<div class="form-group"><label for="time" class="col-sm-4 control-label">Time</label><div class="col-sm-8"><input name="hour" id="time" type="text" class="form-control" value="<?php echo htmlspecialchars($bg_time, ENT_QUOTES, 'UTF-8'); ?>" /></div></div>
+								<div class="form-group"><label class="col-sm-4 control-label">Module ID</label><div class="col-sm-8"><p class="form-control-static"><?php echo htmlspecialchars($bg_id_module, ENT_QUOTES, 'UTF-8'); ?></p></div></div>
+							</div>
+							<div class="col-md-6">
+								<h3 class="h4 text-muted">Payment schedule</h3>
+								<?php
+									$pay_number = 0;
+									$bg_pay = json_decode($bg_pay, true);
+									foreach($bg_pay as $key => $value) {
+										$pay_number = intval($key) + 1;
+								?>
+									<div class="form-group">
+										<label for="plan-pay-amount-<?php echo $pay_number; ?>" class="col-sm-4 control-label">Pay method <?php echo $pay_number; ?></label>
+										<div class="col-sm-4"><input name="pay_amount[]" id="plan-pay-amount-<?php echo $pay_number; ?>" type="number" step="any" class="form-control" value="<?php echo htmlspecialchars($bg_pay[$key]['amount'], ENT_QUOTES, 'UTF-8'); ?>" /></div>
+										<div class="col-sm-4"><select class="chosen-select form-control" name="pay_frequence[]">
+											<?php foreach(array('daily' => 'Daily', 'weekly' => 'Weekly', 'monthly' => 'Monthly', 'yearly' => 'Yearly') as $frequency_value => $frequency_label) { ?>
+												<option value="<?php echo $frequency_value; ?>" <?php if($bg_pay[$key]['frequence'] == $frequency_value){ echo 'selected="selected"'; } ?>><?php echo $frequency_label; ?></option>
+											<?php } ?>
+										</select></div>
+									</div>
+								<?php } ?>
+								<?php for($i=1; $i<3; $i++){ $pay_number++; ?>
+									<div class="form-group">
+										<label for="plan-pay-amount-<?php echo $pay_number; ?>" class="col-sm-4 control-label">Pay method</label>
+										<div class="col-sm-4"><input name="pay_amount[]" id="plan-pay-amount-<?php echo $pay_number; ?>" type="number" step="any" class="form-control" value="" /></div>
+										<div class="col-sm-4"><select class="chosen-select form-control" name="pay_frequence[]">
+											<option value="daily">Daily</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option>
+										</select></div>
+									</div>
+								<?php } ?>
+							</div>
+						</div>
+						<div class="form-group"><label class="col-sm-2 control-label">Restricted tags</label><div class="col-sm-10"><div class="tag-selector"><?php echo modify_tag($bg_connexion, $bg_tag_multiple); ?></div></div></div>
+						<h2 class="h4 text-muted">Display options</h2>
+						<?php if(!empty($bg_options1)) { ?>
+							<div class="form-group"><label for="plan-show-title-class" class="col-sm-2 control-label">Show title class</label><div class="col-sm-4"><select class="chosen-select form-control" id="plan-show-title-class" name="show_title_class"><option value="show_title" <?php if($bg_options1[0] == 'show_title'){ ?>selected="selected"<?php } ?>>Show</option><option value="0" <?php if($bg_options1[0] == '0'){ ?>selected="selected"<?php } ?>>Hide</option></select></div></div>
+						<?php } ?>
+						<?php if(!empty($bg_options2)) {
+							$display_options = array('show_title' => 0, 'show_description' => 1, 'show_username' => 2, 'show_time' => 3, 'show_date' => 4);
+							foreach($display_options as $option_name => $option_index) {
+								$option_label = ucwords(str_replace('show_', '', $option_name));
+						?>
+							<div class="form-group"><label for="plan-<?php echo $option_name; ?>" class="col-sm-2 control-label">Show <?php echo $option_label; ?></label><div class="col-sm-4"><select class="chosen-select form-control" id="plan-<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"><option value="<?php echo $option_name; ?>" <?php if(isset($bg_options2[$option_index]) && $bg_options2[$option_index] == $option_name){ ?>selected="selected"<?php } ?>>Show</option><option value="0" <?php if(isset($bg_options2[$option_index]) && $bg_options2[$option_index] == '0'){ ?>selected="selected"<?php } ?>>Hide</option></select></div></div>
+						<?php } } ?>
+						<div class="form-group"><div class="col-sm-offset-2 col-sm-10"><button type="submit" class="btn btn-primary" name="post" value="Modify">Save plan</button></div></div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
-    <div class="row">
-        <div class="col-md-12">
-            <input type="submit" class="btn btn-primary" name="post" value="Modify" />
-        </div>
-    </div>
-</form>
