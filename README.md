@@ -20,7 +20,7 @@
 	<li>Apache: 2.2 or higher</li>
 	<li>PHP: 7.0 to 7.4</li>
 	<li>Storage: 50 MB or higher</li>
-	<li>ZIP Archive Installed</li>
+	<li>ZIP Archive, GD, XML Installed</li>
 	<li>MEMORY_LIMIT: 128 MB or higher</li>
 	<li>VPS or shared hosting</li>
 </ul>
