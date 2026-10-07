@@ -39,7 +39,7 @@
                             <div class="form-group"><label for="expense-publish" class="col-sm-4 control-label">Status</label><div class="col-sm-8"><select class="chosen-select form-control" id="expense-publish" name="publish"><option value="1" <?php if($bg_publish=='1'){ ?>selected="selected"<?php } ?>>Published</option><option value="0" <?php if($bg_publish=='0'){ ?>selected="selected"<?php } ?>>Unpublished</option></select></div></div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group"><label class="col-sm-4 control-label">Tags</label><div class="col-sm-8"><div class="tag-selector"><?php echo modify_tag($bg_connexion, $bg_tag_multiple2); ?></div></div></div>
+                            <div class="form-group"><label class="col-sm-5 control-label">Tags</label><div class="col-sm-7"><div class="tag-selector"><?php echo modify_tag($bg_connexion, $bg_tag_multiple2); ?></div></div></div>
                             <?php if(!empty($bg_options2)) {
                                 $display_options = array('show_title' => 0, 'show_description' => 1, 'show_username' => 2, 'show_time' => 3, 'show_date' => 4);
                             ?>

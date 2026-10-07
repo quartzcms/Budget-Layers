@@ -29,7 +29,7 @@
                             <?php } ?>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group"><label class="col-sm-4 control-label">Restricted tags</label><div class="col-sm-8"><div class="tag-selector"><?php echo add_tag($bg_connexion); ?></div></div></div>
+                            <div class="form-group"><label class="col-sm-5 control-label">Restricted tags</label><div class="col-sm-7"><div class="tag-selector"><?php echo add_tag($bg_connexion); ?></div></div></div>
                             <h3 class="h4 text-muted">Display options</h3>
                             <div class="form-group"><label for="plan-show-title-class" class="col-sm-5 control-label">Show title class</label><div class="col-sm-7"><select class="chosen-select form-control" id="plan-show-title-class" name="show_title_class"><option value="show_title">Show</option><option value="0">Hide</option></select></div></div>
                             <?php

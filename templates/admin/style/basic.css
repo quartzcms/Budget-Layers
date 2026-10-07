@@ -73,6 +73,7 @@ form .radio-inline { color: #555; }
 .radio-switch .btn { margin-top: 0 !important; }
 .add-expense-form { color: #333; }
 .panel-body .form-horizontal .table-striped tr td { color: #333; }
+.tag-selector { padding-left: 12px; }
 .tag-selector > ul {
 	display: flex;
 	flex-wrap: wrap;
@@ -125,6 +126,36 @@ table a.label:focus {
 .listing-sidebar .panel-body,
 .listing-sidebar .panel-body p {
 	color: #555555;
+}
+
+.container-list .list-group-item > a:not(.btn) {
+	color: #555555;
+}
+
+.container-list .list-group-item > a:not(.btn):hover,
+.container-list .list-group-item > a:not(.btn):focus {
+	color: #333333;
+}
+
+.container-module-editor,
+.container-module-editor p,
+.container-module-editor li,
+.container-module-editor .tag-selector,
+.container-module-editor .tag-selector li {
+	color: #555555 !important;
+}
+
+.container-module-editor a:not(.btn) {
+	color: #555555 !important;
+}
+
+.container-module-editor a:not(.btn):hover,
+.container-module-editor a:not(.btn):focus {
+	color: #333333 !important;
+}
+
+.container-module-editor .glyphicon {
+	color: #000000 !important;
 }
 
 #monthly-total-tables .table-striped tr td {
