@@ -1,7 +1,5 @@
 <?php
-	if($_SESSION['editor']=='ckeditor'){
-?>
-	<script type="text/javascript" src="/plugins/ckeditor/ckeditor.js"></script>
-<?php 
+	if($_SESSION['editor']=='ckeditor' && function_exists('ckeditor_head')){
+		echo ckeditor_head();
 	}
 ?>

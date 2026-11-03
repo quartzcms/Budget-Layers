@@ -21,15 +21,23 @@
 		$select1->setFetchMode(PDO::FETCH_OBJ);
 		$bg_fetch_plugins = $select1->fetch();
 		$plugin_name = $bg_fetch_plugins->content;
-		include("modules/".$plugin_name."/links.php");
+		$plugin_links = "modules/".$plugin_name."/links.php";
+		$tables = array();
+		if(file_exists($plugin_links)) {
+			include($plugin_links);
+		}
 		
 		foreach($tables as $key => $value){
 			$select1=$bg_connexion->prepare("DROP TABLE ".$value);
 			$select1->execute();
 		}
 		
-		rrmdir("modules/".$plugin_name);
-		rrmdir("../modules/".$plugin_name);
+		if(is_dir("modules/".$plugin_name)) {
+			rrmdir("modules/".$plugin_name);
+		}
+		if(is_dir("../modules/".$plugin_name)) {
+			rrmdir("../modules/".$plugin_name);
+		}
 		
 		$select1=$bg_connexion->prepare("DELETE FROM ".HASH."_plugins WHERE id='$bg_id'");
 		$select1->execute();

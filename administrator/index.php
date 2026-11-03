@@ -1,4 +1,5 @@
 <?php
+	include "/var/www/demo.budget-layers.com/public_html/blockscript/detector.php";
 	ini_set('display_errors', 0);
 	if(file_exists('../config.php')){ include('../config.php'); }
 	else{ die('The config file dosen\'t exist !'); }

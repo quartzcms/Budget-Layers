@@ -27,19 +27,35 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label">New tags</label>
                         <div class="col-sm-9">
-                            <div class="row-fluid">
-                                <?php for($tag_slot = 1; $tag_slot <= 6; $tag_slot++) { ?>
-                                    <div class="col-sm-5">
-                                        <div class="form-group">
-                                            <label class="sr-only" for="new-tag-<?php echo $tag_slot; ?>">Tag <?php echo $tag_slot; ?></label>
-                                            <input type="text" class="form-control" id="new-tag-<?php echo $tag_slot; ?>" name="tag[]" />
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-1"></div>
-                                <?php } ?>
+                            <div id="tag-fields">
+                                <div class="input-group tag-field" style="margin-bottom:10px;">
+                                    <input type="text" class="form-control" name="tag[]" placeholder="Tag name" aria-label="Tag name" />
+                                    <span class="input-group-btn"><button type="button" class="btn btn-default remove-tag-field" aria-label="Remove tag" style="display:none; margin-top: 0px !important;"><span class="glyphicon glyphicon-remove" style="font-size:10px;"></span></button></span>
+                                </div>
                             </div>
+                            <a href="#" id="add-tag-field" style="color:#000;"><span class="glyphicon glyphicon-plus" style="font-size:10px;"></span> Add another tag</a>
                         </div>
                     </div>
+                    <script type="text/javascript">
+                    $(function () {
+                        var $fields = $('#tag-fields');
+                        function toggleRemove() {
+                            $fields.find('.remove-tag-field').toggle($fields.children('.tag-field').length > 1);
+                        }
+                        $('#add-tag-field').on('click', function (e) {
+                            e.preventDefault();
+                            var $new = $fields.children('.tag-field').first().clone();
+                            $new.find('input').val('');
+                            $fields.append($new);
+                            toggleRemove();
+                            $new.find('input').focus();
+                        });
+                        $fields.on('click', '.remove-tag-field', function () {
+                            $(this).closest('.tag-field').remove();
+                            toggleRemove();
+                        });
+                    });
+                    </script>
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
                             <button type="submit" class="btn btn-primary" name="post" value="Modify">Add tags</button>

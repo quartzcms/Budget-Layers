@@ -82,17 +82,17 @@
             <div class="panel-body">
         <form action="index.php?page=order_module" method="post" id="validator" role="form">
             <table class="table-striped list">
-                <tr>
-                    <td>Class/Title</td>
-                    <td>Type</td>
-                    <td>Date</td>
-                    <td>Time</td>
-                    <td>Order</td>
-                    <td>tag</td>
-                    <td>Published</td>
-                    <td>Delete</td>
-                    <td>Id</td>
-                </tr>
+                <thead><tr>
+                    <th>Class/Title</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th class="no-sort">Order</th>
+                    <th>tag</th>
+                    <th class="no-sort">Published</th>
+                    <th class="no-sort">Delete</th>
+                    <th>Id</th>
+                </tr></thead>
         <?php
                 while($bg_fetch_modules = $select1->fetch()){
                     $bg_id=decoding($bg_fetch_modules->id);

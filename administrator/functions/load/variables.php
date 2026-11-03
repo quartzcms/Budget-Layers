@@ -97,7 +97,8 @@
 					$bg_fetch_config = $select1->fetch();
 					
 					if($bg_fetch_config->pause == 0){
-						$select1=$bg_connexion->query("SELECT * FROM ".HASH."_plugins WHERE publish='1'");
+						$select1=$bg_connexion->query("SELECT * FROM ".HASH."_plugins WHERE publish='1' 
+						AND content != 'chosen' AND content != 'datepicker' AND content != 'ckeditor' AND content != 'datatables' AND content != 'rowdrag'");
 						$select1->setFetchMode(PDO::FETCH_OBJ);
 						
 						while($bg_fetch_plugins = $select1->fetch()){

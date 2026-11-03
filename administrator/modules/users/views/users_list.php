@@ -66,14 +66,14 @@
             <div class="panel-body">
         <form action="index.php?page=delete_user" method="post" id="validator" role="form">
             <table class="table-striped list">
-                <tr>
-                    <td>Username</td>
-                    <td>First name</td>
-                    <td>Last name</td>
-                    <td>Email</td>
-                    <td>Supress</td>
-                    <td>Update/See profile</td>
-                </tr>
+                <thead><tr>
+                    <th>Username</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th class="no-sort">Supress</th>
+                    <th class="no-sort">Update/See profile</th>
+                </tr></thead>
         <?php
             while($bg_fetch_users = $select1->fetch()){
                 $bg_id=decoding($bg_fetch_users->id);

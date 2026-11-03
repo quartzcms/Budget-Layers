@@ -53,13 +53,13 @@
             <div class="panel-heading"><h2 class="panel-title">Plugins</h2></div>
             <div class="panel-body" style="overflow-x: auto;">
         <table class="table-striped list">
-            <tr>
-                <td>Title</td>
-                <td>Date</td>
-                <td>Time</td>
-                <td>Published</td>
-                <td>Delete</td>
-            </tr>
+            <thead><tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th class="no-sort">Published</th>
+                <th class="no-sort">Delete</th>
+            </tr></thead>
     <?php 
             while($bg_fetch_plugins = $select1->fetch()){		
                 $bg_id=decoding($bg_fetch_plugins->id);

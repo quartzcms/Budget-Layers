@@ -142,7 +142,14 @@ CREATE TABLE `cms_plugins` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 INSERT INTO `cms_plugins` (`id`, `title`, `date`, `time`, `default_tag`, `content`, `publish`) VALUES
-(1,	'plan',	'0000-00-00',	'00:00:00',	'list_plan',	'plan',	1);
+(1,	'plan',	'0000-00-00',	'00:00:00',	'list_plan',	'plan',	1),
+(2,	'Excel export',	'0000-00-00',	'00:00:00',	'list_plan',	'excel',	1),
+(3,	'Calendar',	'0000-00-00',	'00:00:00',	'calendar_plan',	'calendar',	1),
+(4,	'Chosen',	'0000-00-00',	'00:00:00',	'chosen_head',	'chosen',	1),
+(5,	'Date picker',	'0000-00-00',	'00:00:00',	'datepicker_head',	'datepicker',	1),
+(6,	'CKEditor',	'0000-00-00',	'00:00:00',	'ckeditor_head',	'ckeditor',	1),
+(7,	'DataTables',	'0000-00-00',	'00:00:00',	'datatables_head',	'datatables',	1),
+(8,	'Row drag',	'0000-00-00',	'00:00:00',	'rowdrag_head',	'rowdrag',	1);
 
 DROP TABLE IF EXISTS `cms_template`;
 CREATE TABLE `cms_template` (

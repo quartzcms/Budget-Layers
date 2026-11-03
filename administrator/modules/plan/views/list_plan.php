@@ -2,8 +2,12 @@
 <?php echo $_SESSION['error_message']; ?>
 <div class="row">
 	<div class="col-md-12" style="margin-bottom: 10px;">
+		<?php if(function_exists('calendar_plan')) { ?>
 		<a class="btn btn-info pull-right" href="index.php?page=calendar_plan<?php if(isset($_GET['tag'])) { echo '&amp;tag='.urlencode($_GET['tag']); } ?>">View Calendar</a>
+		<?php } ?>
+		<?php if(function_exists('export_plan')) { ?>
 		<a class="btn btn-success pull-right" href="index.php?page=export_plan<?php if(isset($_GET['tag'])) { echo '&amp;tag='.urlencode($_GET['tag']); } ?>">Export Excel</a>
+		<?php } ?>
 		<button class="btn btn-warning pull-right" onclick="window.print();return false;">Print Page</button>
 	</div>
 </div>
@@ -19,15 +23,15 @@
 			$x = 0;
 		?>
 		<table width="100%" cellpadding="5" cellspacing="0" class="table-striped list">
-			<tr>
-				<td>Class</td>
-				<td>Title</td>
-				<td>Username</td>
-				<td>Time</td>
-				<td>Date</td>
-				<td>Tags</td>
-				<td>Pay method</td>
-			</tr>
+			<thead><tr>
+				<th>Class</th>
+				<th>Title</th>
+				<th>Username</th>
+				<th>Time</th>
+				<th>Date</th>
+				<th>Tags</th>
+				<th class="no-sort">Pay method</th>
+			</tr></thead>
 			<?php 
 			if(isset($data['module'])){
 				foreach($data['module'] as $key => $value) { 
@@ -113,17 +117,17 @@
 			<div class="panel-heading"><h2 class="panel-title">Expenses</h2></div>
 			<div class="panel-body" style="overflow-x: auto;">
 		<table width="100%" cellpadding="5" cellspacing="0" class="table-striped list">
-			<tr>
-				<td>Class</td>
-				<td>Title</td>
-				<td>Username</td>
-				<td>Time</td>
-				<td>Date</td>
-				<td>Tags</td>
-				<td>Cost</td>
-				<td>Frequence</td>
-				<td>Content</td>
-			</tr>
+						<thead><tr>
+							<th>Class</th>
+							<th>Title</th>
+							<th>Username</th>
+							<th>Time</th>
+							<th>Date</th>
+							<th>Tags</th>
+							<th>Cost</th>
+							<th>Frequence</th>
+							<th>Content</th>
+						</tr></thead>
 			<?php 
 			if(isset($data['expenses'])){
 				foreach($data['expenses'] as $key => $value) { 
@@ -206,10 +210,6 @@
 						}			
 					}
 				?>
-				<tr>
-					<td colspan="9" style="border-bottom: none !important; height: 40px !important; padding: 0px !important;">
-					</td>
-				</tr>
 				<?php
 				} 
 			}
@@ -225,17 +225,17 @@
 			<div class="panel-heading"><h2 class="panel-title">Other expenses</h2></div>
 			<div class="panel-body" style="overflow-x: auto;">
 		<table width="100%" cellpadding="5" cellspacing="0" class="table-striped list">
-			<tr>
-				<td>Class</td>
-				<td>Title</td>
-				<td>Username</td>
-				<td>Time</td>
-				<td>Date</td>
-				<td>Tags</td>
-				<td>Cost</td>
-				<td>Frequence</td>
-				<td>Content</td>
-			</tr>
+						<thead><tr>
+							<th>Class</th>
+							<th>Title</th>
+							<th>Username</th>
+							<th>Time</th>
+							<th>Date</th>
+							<th>Tags</th>
+							<th>Cost</th>
+							<th>Frequence</th>
+							<th>Content</th>
+						</tr></thead>
 			<?php
 			if(isset($data['other_expenses'])){
 				foreach($data['other_expenses'] as $key => $value) { 
@@ -405,18 +405,18 @@
 				<div id="<?php echo $month_panel_id; ?>" class="panel-collapse collapse<?php if($month_index == 0) { echo ' in'; } ?>">
 					<div class="panel-body" style="overflow-x: auto;">
 						<table width="100%" cellpadding="5" cellspacing="0" class="table-striped list">
-							<tr>
-								<td class="hide_for_print">Day</td>
-								<td class="hide_for_print">Week</td>
-								<td class="hide_for_print">Month</td>
-								<td>Date</td>
-								<td>Time</td>
-								<td>Daily Pay</td>
-								<td>Daily Expense</td>
-								<td>Pay Total</td>
-								<td>Expense Total</td>
-								<td align="right">Profit</td>
-							</tr>
+							<thead><tr>
+								<th class="hide_for_print">Day</th>
+								<th class="hide_for_print">Week</th>
+								<th class="hide_for_print">Month</th>
+								<th>Date</th>
+								<th>Time</th>
+								<th>Daily Pay</th>
+								<th>Daily Expense</th>
+								<th>Pay Total</th>
+								<th>Expense Total</th>
+								<th align="right">Profit</th>
+							</tr></thead>
 							<?php foreach($rows as $row){ ?>
 							<tr>
 								<td width="6%" class="hide_for_print"><?php echo 'Day '.$row['day_number']; ?></td>
@@ -436,14 +436,14 @@
 								</td>
 							</tr>
 							<?php } ?>
-							<tr class="info">
+							<tfoot><tr class="info">
 								<td colspan="5" align="right"><strong>Month totals</strong></td>
 								<td><strong><?php echo $month_total['daily_pay']; ?></strong></td>
 								<td><strong><?php echo $month_total['daily_expense']; ?></strong></td>
 								<td><?php echo $month_total['closing_pay']; ?></td>
 								<td><?php echo $month_total['closing_expense']; ?></td>
 								<td align="center"><strong><?php echo intval($month_profit); ?></strong></td>
-							</tr>
+							</tr></tfoot>
 						</table>
 					</div>
 				</div>

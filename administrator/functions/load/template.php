@@ -10,8 +10,13 @@
 		
 		$bg_get_info='';
 		
+		$function_name = ($bg_action != '0') ? $bg_action."_".$bg_tag : $bg_tag;
+		if(!preg_match('/^[A-Za-z_][A-Za-z0-9_]*$/', $function_name) || !function_exists($function_name)){
+			http_response_code(404);
+			return '<div class="alert alert-danger" role="alert">This page is not available. The plugin providing it may be unpublished.</div>';
+		}
+		
 		if($bg_action != '0'){	
-			$function_name=$bg_action."_".$bg_tag;
 			$bg_get_info=$function_name($bg_connexion);
 			if(empty($bg_get_info)){
 				header("Location: ".$_SERVER['HTTP_REFERER']);

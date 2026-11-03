@@ -79,19 +79,19 @@
             <div class="panel-body">
         <form action="index.php?page=order_expense" method="post" id="validator" role="form">
             <table class="table-striped list">
-                <tr>
-                    <td>Title</td>
-                    <td>Class</td>
-                    <td>Date</td>
-                    <td>Time</td>
-					<td>Frequence</td>
-					<td>Cost</td>
-                    <td>Reorder</td>
-                    <td>tag</td>
-                    <td>Published</td>
-                    <td>Delete</td>
-                    <td>Id</td>
-                </tr>
+                <thead><tr>
+                    <th>Title</th>
+                    <th>Class</th>
+                    <th>Date</th>
+                    <th>Time</th>
+					<th>Frequence</th>
+					<th>Cost</th>
+                    <th class="no-sort">Reorder</th>
+                    <th>tag</th>
+                    <th class="no-sort">Published</th>
+                    <th class="no-sort">Delete</th>
+                    <th>Id</th>
+                </tr></thead>
         <?php
             while($bg_fetch_expenses = $select1->fetch()){	
                 $bg_id=decoding($bg_fetch_expenses->id);

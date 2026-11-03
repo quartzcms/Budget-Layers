@@ -3,7 +3,8 @@
 <div class="list">
     <a href="index.php?page=addmodule&action=expense">Add module expense</a><br />
     <a href="index.php?page=addmodule&action=container">Add module container</a><br />
-    <?php
+    <a href="index.php?page=addmodule&action=plan">Add module plan</a><br />
+    <?php /*
         $select1=$bg_connexion->query("SELECT * FROM ".HASH."_plugins WHERE publish='1'");
         $select1->setFetchMode(PDO::FETCH_OBJ);
         while($bg_fetch_plugins = $select1->fetch()){
@@ -13,6 +14,6 @@
     ?>
     		<a href="<?php echo $bg_add_module_tag ?>">Add module <?php echo $plugin_title ?></a><br />
 	<?php 
-		} 
+		} */
 	?>
 </div>
